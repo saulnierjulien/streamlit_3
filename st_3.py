@@ -33,6 +33,7 @@ def accueil():
 
 # Vérification de l'authentification
 if st.session_state.get("authentication_status"):
+
     accueil()
     authenticator.logout("Déconnexion")
 
@@ -43,28 +44,32 @@ if st.session_state.get("authentication_status"):
     # Affichage en fonction du choix
     if menu_selection == "Accueil":
         st.write("Bienvenue sur la page d'accueil !")
-                # Charger et afficher image
-        image1 = Image.open("manhattan.jpeg")
-        
-        # Affichage image avec use_container_width
-        st.image(image1, use_container_width=True)
+        # Charger et afficher image
+        try:
+            image1 = Image.open("manhattan.jpeg")
+            st.image(image1, use_container_width=True)
+        except Exception as e:
+            st.error(f"Erreur lors du chargement de l'image : {e}")
 
     elif menu_selection == "Photos":
         st.write("Bienvenue sur mon album photo !")
 
         # Charger et afficher plusieurs images
-        image2 = Image.open("brooklyn.jpeg")
-        image3 = Image.open("queens.jpeg")
-        image4 = Image.open("bronx.jpeg")
-        
-        # Diviser la page en 3 colonnes pour afficher les images côte à côte
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.image(image2, use_container_width=True)
-        with col2:
-            st.image(image3, use_container_width=True)
-        with col3:
-            st.image(image4, use_container_width=True)
+        try:
+            image2 = Image.open("brooklyn.jpeg")
+            image3 = Image.open("queens.jpeg")
+            image4 = Image.open("bronx.jpeg")
+
+            # Diviser la page en 3 colonnes pour afficher les images côte à côte
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.image(image2, use_container_width=True)
+            with col2:
+                st.image(image3, use_container_width=True)
+            with col3:
+                st.image(image4, use_container_width=True)
+        except Exception as e:
+            st.error(f"Erreur lors du chargement des images : {e}")
 
 else:
     # Gérer les erreurs
